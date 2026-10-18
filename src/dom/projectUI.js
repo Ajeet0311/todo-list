@@ -1,4 +1,4 @@
-import { addProject, deleteProject, renderProject, renderProjectList } from "../modules/projectManager.js";
+import { addProject, deleteProject, renderProject, renderProjectList, saveToStorage } from "../modules/projectManager.js";
 
 
 // Add project and render it
@@ -18,6 +18,8 @@ projForm.addEventListener('submit', (event) => {
     addProject(name);
     renderProjectList();
     
+    saveToStorage();
+
     projForm.reset();
     projDial.close();
 });
@@ -35,6 +37,7 @@ const mainContent = document.getElementById('mainContent');
 projList.addEventListener('click', (event) => {
     if (event.target.classList.contains('projBtn')){
         mainContent.replaceChildren(renderProject(event.target.value));
+        saveToStorage();
     }
 });
 
@@ -44,6 +47,7 @@ mainContent.addEventListener('click', (event) => {
         deleteProject(event.target.value);
         mainContent.replaceChildren();
         renderProjectList();
+        saveToStorage();
         return;
     }
 });

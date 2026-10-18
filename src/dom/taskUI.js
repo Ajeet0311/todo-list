@@ -1,4 +1,4 @@
-import { findProject, renderProject } from "../modules/projectManager.js";
+import { findProject, renderProject, saveToStorage } from "../modules/projectManager.js";
 
 const taskDial = document.getElementById("taskDialog");
 const taskForm = document.getElementById("taskForm");
@@ -44,6 +44,8 @@ mainContent.addEventListener('click', (event) => {
         curProj.deleteTask(curTaskId);
 
         mainContent.replaceChildren(renderProject(curProjId));
+
+        saveToStorage();
         return;
     }
 });
@@ -70,6 +72,8 @@ taskForm.addEventListener('submit', (event) => {
 
     mainContent.replaceChildren(renderProject(curProjId));
 
+    saveToStorage();
+    
     taskForm.reset();
     curTaskId = null;
     taskDial.close();

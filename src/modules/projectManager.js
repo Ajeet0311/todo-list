@@ -1,4 +1,5 @@
 import projectObject from "./project.js";
+import taskObject from "./task.js";
 
 let projectList = [];
 
@@ -61,5 +62,37 @@ export function renderProjectList(){
         projBtn.value = project.id;
 
         projList.appendChild(projBtn);
+    }
+}
+
+// Save current state to local storage
+export function saveToStorage() {
+    localStorage.setItem('todo-projects', JSON.stringify(projectList));
+}
+
+// Load and rehydrate data
+export function loadFromStorage() {
+    const storedData = localStorage.getItem('todo-projects');
+
+    if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        
+        // Rehydrate: Turn plain objects back into Project and Task class instances
+        projectList = parsedData.map(projData => {
+            const project = new projectObject(projData.name);
+            project.id = projData.id; // Override the new UUID with the saved one
+            
+            // Rehydrate the tasks inside the project
+            project.taskList = projData.taskList.map(taskData => {
+                const task = new taskObject(taskData.title, taskData.description, taskData.dueDate, taskData.priority);
+                task.id = taskData.id; // Override the new UUID with the saved one
+                return task;
+            });
+            
+            return project;
+        });
+    } else {
+        // If local storage is empty (first time visiting the site)
+        addProject("Default");
     }
 }
