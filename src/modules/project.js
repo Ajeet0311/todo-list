@@ -1,5 +1,6 @@
 import taskObject from "./task.js";
 
+// Class project also works as task manager
 export default class project {
 
     constructor(name){
@@ -17,7 +18,7 @@ export default class project {
     }
 
     editTask(idToEdit, title, description, dueDate, priority){
-        const taskToEdit = this.taskList.find(task => task.id == idToEdit);
+        const taskToEdit = this.taskList.find(task => task.id === idToEdit);
 
         taskToEdit.title = title;
         taskToEdit.description = description;
@@ -25,12 +26,37 @@ export default class project {
         taskToEdit.priority = priority;
     }
 
-    showTasks(){
+    renderTaskList(){
+        const taskListDisplay = document.createElement('div');
         for (const task of this.taskList){
-            console.log(`Title: ${task.title}
-Description: ${task.description}
-Due Date: ${task.dueDate}
-Priority: ${task.priority}`);
+            const taskCard = document.createElement('div');
+            taskCard.classList.add("taskCard");
+
+            const content = document.createElement('div');
+            content.classList.add("taskContent");
+            content.textContent = `Title: ${task.title}
+    Description: ${task.description}
+    Due Date: ${task.dueDate}
+    Priority: ${task.priority}`
+            taskCard.appendChild(content);
+
+            const editBtn = document.createElement('button');
+            editBtn.textContent = "Edit";
+            editBtn.classList.add("editTask");
+            editBtn.dataset.projectId = this.id;
+            editBtn.dataset.taskId = task.id;
+            taskCard.appendChild(editBtn);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("deleteTask");
+            deleteBtn.dataset.projectId = this.id;
+            deleteBtn.dataset.taskId = task.id;
+            taskCard.appendChild(deleteBtn);
+
+            taskListDisplay.appendChild(taskCard);
         }
+
+        return taskListDisplay;
     }
 }

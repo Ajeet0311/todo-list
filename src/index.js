@@ -1,7 +1,6 @@
-import { addProject, deleteProject, showProjects } from "./modules/projectManager";
+import "./dom/projectUI.js";
+import "./dom/taskUI.js";
+import { addProject, renderProjectList} from "./modules/projectManager.js";
 
-const defaultProject = addProject("Default");
-
-defaultProject.addTask("exam prep", "Prepare for physics exam", "25-10-2026", 3);
-
-showProjects();
+addProject("Default");
+renderProjectList();

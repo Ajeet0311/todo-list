@@ -6,6 +6,45 @@
     <title>To Do It!</title>
 </head>
 <body>
-    
+    <h1>To Do It!</h1>
+    <button id = "addProj">Add Project</button>
+
+    <h2>Project List</h2>
+    <div id = "projList"></div>
+
+    <div id = "mainContent">
+        <!-- dynamically create div with class = "proContent" -->
+            <!-- dynamically create div with class = "proHeader"n-->
+            <!-- dynamically create div with class = "taskList"-->
+    </div>
+
+    <dialog id = "taskDialog">
+        <form method="dialog" id = "taskForm">
+            <label for="title">Title</label><br>
+            <input type="text" name = "title" required><br>
+
+            <label for="description">Description</label><br>
+            <input type="text" name = "description"><br>
+
+            <label for="dueDate">Due Date</label><br>
+            <input type="date" name = "dueDate" required><br>
+
+            <label for="priority">Priority</label><br>
+            <input type="number" name = "priority" required><br>
+
+            <button type = "submit">Submit</button>
+            <button id = "cancelTask">Cancel</button>
+        </form>
+    </dialog>
+
+    <dialog id = "projectDialog">
+        <form method="dialog" id = "projectForm">
+            <label for="name">Name</label><br>
+            <input type="text" name = "name" required><br>
+
+            <button type="submit">Submit</button>
+            <button id = "cancelProject">Cancel</button>
+        </form>
+    </dialog>
 </body>
 </html>
